@@ -1,0 +1,28 @@
+body {
+    background-color:#eee;
+    width: 50%;
+    margin: 0 auto;
+    margin-top: 40px;
+}
+
+.App {
+    background-color: white;
+    padding: 20px 40px;
+    border-radius: 5px;
+
+}
+
+.heading {
+    text-align: center;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+.eachTodo {
+    border: 1px solid #eee;
+    width: 100%;
+    color: green;
+    padding: 10px;
+}

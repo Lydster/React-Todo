@@ -1,17 +1,17 @@
 import React from 'react';
-import Todo from './components/TodoComponents/Todo';
+import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
 
 const todos = [
   {
-    inputTodo: 'this thing I gotta do',
+    name: 'Reflect',
     id: 3472845238432,
     completed: false
     
   },
   {
-    inputTodo: 'this other thing I gotta do',
+    name: 'Breathe',
     id: 3472845238666,
     completed: false
   }
@@ -22,34 +22,42 @@ class App extends React.Component {
   constructor() {
     super() 
     this.state = {
-      todos: todos,
-      inputTodo: "",
-      
+      todos //same as todos: todos, 
     }
   }
 
-  addTodo = e => {
+  addTodo = (e, todo) => {
     e.preventDefault();
-    console.log(e.target);
-
 
     const newTodo = {
-      inputTodo: this.state.inputTodo,
+      name: todo,
       id: Date.now(),
       completed: false
     };
     this.setState({
-      todos: [...this.state.todos, newTodo],
+      todos: [...this.state.todos, newTodo]
     });
-
   };
 
-
-  handleChanges = e => {
-    console.log(e.target.value);
-
+  toggleTodo = todoId => {
     this.setState({
-      [e.target.name]: e.target.value
+      todos: this.state.todos.map(todo => {
+        if (todoId === todo.id) {
+          return {
+            ...todo, 
+            completed: !todo.completed
+          }
+        }
+        return todo;
+      })
+    });
+  };
+
+  clearTodos = e => {
+    e.preventDefault();
+    console.log('running!');
+    this.setState({
+      todos: this.state.todos.filter(todo => !todo.completed)
     });
   };
 
@@ -58,23 +66,18 @@ class App extends React.Component {
   // this component is going to take care of state, and any change handlers you need to work with your state
   render() {
     return (
-      <div>
-        <h1>What is there To Do?!</h1>
+      <div className="App">
+        <div className="heading">
+          <h1>To-Do</h1>
+          <TodoForm addTodo={this.addTodo} />
+        </div>
         <ul className="todo-list">
-        <Todo />
-          {this.state.todos.map((todoFromMap, idx) => {
-            console.log(todoFromMap.inputTodo)
-            return (
-           <li key={idx} > {todoFromMap.inputTodo} </li>
-           
-          )})}
-        </ul>
-        <TodoForm 
-          addTodo={this.addTodo}
-          inputTodo={this.state.inputTodo}
-          handleChanges={this.handleChanges}
+        <TodoList 
+          todos={this.state.todos}
+          toggleTodo={this.toggleTodo}
         />
-        
+        </ul>
+        <button onClick={this.clearTodos}>Clear</button>
       </div>
 
     );
