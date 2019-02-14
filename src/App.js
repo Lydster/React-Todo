@@ -1,16 +1,18 @@
 import React from 'react';
 import Todo from './components/TodoComponents/Todo';
-import TodoList from './components/TodoComponents/TodoList';
 import TodoForm from './components/TodoComponents/TodoForm';
 
 
 const todos = [
   {
     inputTodo: 'this thing I gotta do',
+    id: 3472845238432,
     completed: false
+    
   },
   {
     inputTodo: 'this other thing I gotta do',
+    id: 3472845238666,
     completed: false
   }
 ];
@@ -21,7 +23,8 @@ class App extends React.Component {
     super() 
     this.state = {
       todos: todos,
-      inputTodo: ""
+      inputTodo: "",
+      
     }
   }
 
@@ -32,13 +35,15 @@ class App extends React.Component {
 
     const newTodo = {
       inputTodo: this.state.inputTodo,
+      id: Date.now(),
+      completed: false
     };
     this.setState({
-      todos: [...this.state.todos, newTodo]
-
+      todos: [...this.state.todos, newTodo],
     });
 
   };
+
 
   handleChanges = e => {
     console.log(e.target.value);
@@ -55,11 +60,15 @@ class App extends React.Component {
     return (
       <div>
         <h1>What is there To Do?!</h1>
-        <div className="todo-list">
-          {this.state.todos.map((todoFromMap, index) => (
-            <Todo key={index} todo={todoFromMap.inputTodo} />
-          ))}
-        </div>
+        <ul className="todo-list">
+        <Todo />
+          {this.state.todos.map((todoFromMap, idx) => {
+            console.log(todoFromMap.inputTodo)
+            return (
+           <li key={idx} > {todoFromMap.inputTodo} </li>
+           
+          )})}
+        </ul>
         <TodoForm 
           addTodo={this.addTodo}
           inputTodo={this.state.inputTodo}
