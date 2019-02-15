@@ -16,13 +16,17 @@ body {
     text-align: center;
 }
 
-.completed {
-    text-decoration: line-through;
-}
-
-.eachTodo {
+.todo {
     border: 1px solid #eee;
-    width: 100%;
+    width: 50%;
     color: green;
     padding: 10px;
+}
+
+.todocompleted {
+    text-decoration: line-through;
+    border: 1px solid #eee;
+    width: 50%;
+    padding: 10px;
+    color: red;
 }
